@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.13.0"
+  blue_thermal_printer_plus:
+    dependency: "direct main"
+    description:
+      name: blue_thermal_printer_plus
+      sha256: "9ef91fce8c4742cacc5ddf492e6e13cbbf5101f8d41b42cd57331eafd596c62f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.7"
   boolean_selector:
     dependency: transitive
     description:

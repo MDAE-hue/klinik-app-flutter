@@ -62,6 +62,7 @@ $app->singleton(
 $app->configure('app');
 $app->configure('jwt');
 $app->configure('database');
+$app->configure('view');
 
 /*
 |--------------------------------------------------------------------------
@@ -99,7 +100,7 @@ $app->routeMiddleware([
 // $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Barryvdh\DomPDF\ServiceProvider::class);
-
+$app->register(Illuminate\View\ViewServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*

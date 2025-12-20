@@ -138,28 +138,37 @@ class JanjiKonsultasiController extends Controller
 
 public function tiket($id)
 {
-    // ✅ AMBIL USER DARI JWT AUTH
-    $user = auth()->user();
-
-    if (!$user) {
-        abort(401, 'Unauthorized');
-    }
-
-    // ✅ CARI PASIEN BERDASARKAN USER LOGIN
-    $pasien = Pasien::where('user_id', $user->id)->firstOrFail();
-
-    // ✅ AMBIL JANJI SESUAI PASIEN
     $janji = JanjiKonsultasi::with([
         'pasien',
         'jadwalDokter.dokter',
         'status'
-    ])
-    ->where('id', $id)
-    ->where('pasien_id', $pasien->id)
-    ->firstOrFail();
+    ])->findOrFail($id);
 
     return view('tiket', compact('janji'));
 }
+
+
+    // ================= JSON UNTUK PRINTER =================
+    public function printJson($id)
+    {
+        $janji = JanjiKonsultasi::with([
+            'pasien',
+            'jadwalDokter.dokter',
+            'status'
+        ])->findOrFail($id);
+
+        return response()->json([
+            "title" => "KLINIK XYZ",
+            "lines" => [
+                "Kode   : {$janji->kode_tiket}",
+                "Pasien : {$janji->pasien->nama}",
+                "Dokter : {$janji->jadwalDokter->dokter->nama}",
+                "Tanggal: {$janji->tanggal_janji}",
+                "Status : {$janji->status->nama_status}",
+            ],
+            "footer" => "Terima kasih 🙏"
+        ]);
+    }
 
 
 public function pdf($id)

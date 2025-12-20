@@ -1,133 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Tiket Konsultasi</title>
+
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f3f4f6;
+            font-family: monospace;
+            font-size: 12px;
             margin: 0;
             padding: 0;
-            font-size: 14px;
         }
-
-        .container {
-            width: 700px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border: 1px solid #d1d5db;
+        .ticket {
+            width: 58mm;
+            padding: 6px;
         }
-
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid #1565C0;
-            padding-bottom: 12px;
-            margin-bottom: 20px;
+        .center { text-align: center; }
+        .bold { font-weight: bold; }
+        .divider {
+            border-top: 1px dashed #000;
+            margin: 6px 0;
         }
-
-        .logo {
-            height: 50px;
-        }
-
-        .title {
-            color: #1565C0;
-            font-size: 22px;
-            font-weight: bold;
-            text-align: center;
-            flex: 1;
-        }
-
-        .info {
-            display: grid;
-            grid-template-columns: 150px 1fr;
-            row-gap: 12px;
-            column-gap: 16px;
-            font-size: 16px;
-        }
-
-        .info strong {
-            color: #111827;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #3b82f6; /* default color for status */
-        }
-
-        .status.selesai { background-color: #10b981; }   /* green */
-        .status.dijadwalkan { background-color: #3b82f6; } /* blue */
-        .status.batal { background-color: #ef4444; }    /* red */
-
-        .qr-placeholder {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .qr-placeholder img {
-            width: 120px;
-            height: 120px;
-        }
-
-        @media print {
-            body {
-                background-color: #fff;
-            }
-            .container {
-                box-shadow: none;
-                border: none;
-            }
-        }
+        table { width: 100%; }
+        td { padding: 2px 0; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <img src="https://via.placeholder.com/50x50.png?text=LOGO" alt="Logo Klinik" class="logo">
-        <div class="title">TIKET KONSULTASI</div>
-        <div></div>
+<div class="ticket">
+    <div class="center bold">
+        KLINIK XYZ<br>
+        TIKET KONSULTASI
     </div>
 
-    <div class="info">
-        <div><strong>Kode Tiket:</strong></div>
-        <div>{{ $janji->kode_tiket }}</div>
+    <div class="divider"></div>
 
-        <div><strong>Nama Pasien:</strong></div>
-        <div>{{ $janji->pasien->nama }}</div>
+    <table>
+        <tr><td>Kode</td><td>: {{ $janji->kode_tiket }}</td></tr>
+        <tr><td>Pasien</td><td>: {{ $janji->pasien->nama }}</td></tr>
+        <tr><td>Dokter</td><td>: {{ $janji->jadwalDokter->dokter->nama }}</td></tr>
+        <tr><td>Tanggal</td><td>: {{ $janji->tanggal_janji }}</td></tr>
+        <tr><td>Status</td><td>: {{ $janji->status->nama_status }}</td></tr>
+    </table>
 
-        <div><strong>Dokter:</strong></div>
-        <div>{{ $janji->jadwalDokter->dokter->nama }}</div>
+    <div class="divider"></div>
 
-        <div><strong>Tanggal:</strong></div>
-        <div>{{ $janji->tanggal_janji }}</div>
-
-        <div><strong>Status:</strong></div>
-        <div>
-            <span class="status {{ strtolower($janji->status->nama_status) }}">
-                {{ $janji->status->nama_status }}
-            </span>
-        </div>
+    <div class="center">
+        Simpan tiket ini<br>
+        sebagai bukti konsultasi
     </div>
 
-    <div class="qr-placeholder">
-        <p>Scan untuk verifikasi</p>
-        <img src="https://via.placeholder.com/120" alt="QR Code">
-    </div>
+    <div class="divider"></div>
+
+    <div class="center">Terima kasih 🙏</div>
 </div>
 
-<script>
-  window.onload = function () {
-    window.print();
-  }
-</script>
 </body>
 </html>

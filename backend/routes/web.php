@@ -10,6 +10,7 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api'], function () use ($router) {
 
+    $router->get('/janji/{id}/tiket', 'JanjiKonsultasiController@tiket');
     $router->post('/login', 'AuthController@login'); // login dengan NIK / STR / email
 
     $router->group(['middleware' => 'jwt'], function () use ($router) {
@@ -40,7 +41,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->delete('jadwal-dokter/{id}', 'JadwalDokterController@delete');
         });
 
-        $router->get('/janji/{id}/tiket', 'JanjiKonsultasiController@tiket');
+
+        $router->get('/janji/{id}/print', 'JanjiKonsultasiController@printJson');
         $router->get('/tiket/{id}/pdf', 'JanjiKonsultasiController@pdf');
         $router->post('/janji', 'JanjiKonsultasiController@store');
         $router->get('/janji', 'JanjiKonsultasiController@index');

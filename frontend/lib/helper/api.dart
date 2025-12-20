@@ -7,7 +7,8 @@ import '../Screen/Login.dart';
 import '../main.dart'; // navigatorKey
 
 // const String BASE_URL = "http://localhost:8000/api";
-const String BASE_URL = "http://10.0.2.2:8000/api";
+// const String BASE_URL = "http://10.0.2.2:8000/api";
+const String BASE_URL = "http://10.27.70.239:8000/api";
 
 Future<String> _getToken() async {
   final prefs = await SharedPreferences.getInstance();
